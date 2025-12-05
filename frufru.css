@@ -551,7 +551,7 @@ img { border-radius: 20px; }
 /* ======== SOBRE MIM - CENTRALIZADO ======== */
 /* ======== SOBRE MIM - CENTRALIZADO ======== */
 /* ====== SOBRE MIM – TOTALMENTE CENTRALIZADO ====== */
-about {
+.about {
     display: flex;
     justify-content: center;
     align-items: center;    /* centraliza verticalmente o conteúdo */
@@ -648,3 +648,4 @@ about {
         display: none;
     }
 }
+
