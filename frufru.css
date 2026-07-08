@@ -1,4 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght=300;400;500;600;700;800;900&display=swap');
+/* ==========================================================================
+   1. CONFIGURAÇÕES GERAIS E VARIÁVEIS
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    --bg-color: #fdfdfd;
+    --text-color: #333333;
+    --main-color: #754ef9; /* Roxo principal */
+    --white-color: #ffffff;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    
+    /* Variáveis do Modo Escuro prontas para o JS */
+    --dark-bg: #1f242d;
+    --dark-text: #ffffff;
+    --dark-shadow: rgba(0, 0, 0, 0.3);
+}
+
+/* Ativação do Modo Escuro caso o JS adicione a classe no body */
+body.dark-mode {
+    --bg-color: var(--dark-bg);
+    --text-color: var(--dark-text);
+    --shadow-color: var(--dark-shadow);
+    background-color: var(--bg-color);
+}
 
 * {
     margin: 0;
@@ -11,199 +35,493 @@
     font-family: 'Poppins', sans-serif;
 }
 
-:root {
-    --bg-color: #fdfdfd;
-    --text-color: #333;
-    --main-color: #754ef9;
-    --white-color: #fdfdfd;
-    --shadow-color: rgba(0, 0, 0, .2);
-}
-
-*::selection {
-    background: var(--main-color);
-    color: var(--bg-color);
-}
-
-.dark-mode {
-    --bg-color: #0b061f;
-    --text-color: #fdfdfd;
-    --shadow-color: rgba(0, 0, 0, .7);
-}
-
 html {
-    font-size: 62.5%;
+    font-size: 62.5%; /* 1rem = 10px */
     overflow-x: hidden;
 }
 
 body {
     background: var(--bg-color);
     color: var(--text-color);
+    transition: background .3s, color .3s;
 }
 
+section {
+    min-height: 100vh;
+    padding: 10rem 9% 2rem;
+}
+
+/* Componente de Botão Padrão */
+.btn {
+    display: inline-block;
+    padding: 1.2rem 2.8rem;
+    background: var(--main-color);
+    border-radius: .6rem;
+    box-shadow: 0 .2rem .5rem var(--shadow-color);
+    font-size: 1.6rem;
+    color: var(--white-color);
+    letter-spacing: .1rem;
+    font-weight: 600;
+    transition: .5s ease;
+    cursor: pointer;
+}
+
+.btn:hover {
+    box-shadow: none;
+    opacity: 0.9;
+}
+
+/* Título Padrão das Seções */
+.heading {
+    font-size: 4.5rem;
+    text-align: center;
+    margin-bottom: 5rem;
+}
+
+.heading span {
+    color: var(--main-color);
+}
+
+/* ==========================================================================
+   2. HEADER / MENU DE NAVEGAÇÃO
+   ========================================================================== */
 .header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 2rem 7%;
-    background: transparent;
+    padding: 2rem 9%;
+    background: var(--bg-color);
     display: flex;
+    justify-content: space-between;
     align-items: center;
     z-index: 100;
-    transition: .5s;
-}
-
-.header.sticky {
-    background: var(--bg-color);
-    box-shadow: 0 .1rem .1rem 1rem var(--shadow-color);
+    box-shadow: 0 .1rem 1rem var(--shadow-color);
+    transition: .3s;
 }
 
 .logo {
     font-size: 2.5rem;
-    color: var(--main-color);
-    font-weight: 600;
-    margin-right: auto;
-}
-
-/* ================= BARRA DE NAVEGAÇÃO ================= */
-.navbar a {
-    position: relative;
-    font-size: 2.0rem;
-    color: #333333; /* Grafite escuro para leitura perfeita no fundo branco */
-    font-weight: 600;
-    margin-right: 3.5rem;
-    transition: .3s ease;
-}
-
-.navbar a:hover {
-    color: var(--main-color);
-}
-
-.header.sticky .navbar a {
     color: var(--text-color);
+    font-weight: 700;
+    cursor: default;
 }
 
-.header.sticky .navbar a.active,
+.navbar a {
+    font-size: 1.7rem;
+    color: var(--text-color);
+    margin-left: 4rem;
+    transition: .3s;
+    font-weight: 500;
+}
+
+.navbar a:hover,
 .navbar a.active {
     color: var(--main-color);
 }
 
-.navbar a.active::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -6px;
-    width: 100%;
-    height: .2rem;
-    background: var(--main-color);
-}
-
-.header.sticky .navbar a::before {
-    background: var(--main-color);
-    opacity: .7;
-}
-
-/* Ajustes da barra de navegação no Modo Escuro */
-.dark-mode .navbar a {
-    color: #fdfdfd;
-}
-.dark-mode .header.sticky .navbar a {
-    color: #fdfdfd;
-}
-.dark-mode .navbar a.active,
-.dark-mode .navbar a:hover {
-    color: var(--main-color);
-}
-
-/* ================= ÍCONE MODO ESCURO ================= */
-#darkMode-icon {
-    font-size: 2.4rem;
+/* Ícones do Menu */
+.header .bx {
+    font-size: 2.5rem;
     color: var(--text-color);
     cursor: pointer;
-    transition: .3s ease;
 }
 
-.header.sticky #darkMode-icon {
+#menu-icon {
+    display: none; /* Escondido no Desktop */
+}
+
+/* ==========================================================================
+   3. SEÇÃO HOME (PRINCIPAL)
+   ========================================================================== */
+.home {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 4rem;
+}
+
+.home-content h3 {
+    font-size: 3.2rem;
+    font-weight: 700;
+}
+
+.home-content h1 {
+    font-size: 5.6rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.home-content h1 span {
     color: var(--main-color);
 }
 
-/* ================= SEÇÕES E IMAGENS ================= */
-.home-img img {
-    width: 100%;
-    max-width: 500px;
-    height: auto;
-    object-fit: cover;
+/* Caixa de Texto da Home (Nova Tag) */
+.home-text-box {
+    margin: 2rem 0;
 }
 
+.home-text-box p {
+    font-size: 1.6rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+/* Redes Sociais */
+.social-media a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 4rem;
+    height: 4rem;
+    background: transparent;
+    border: .2rem solid var(--main-color);
+    border-radius: 50%;
+    font-size: 2rem;
+    color: var(--main-color);
+    margin: 3rem 1.5rem 3rem 0;
+    transition: .5s ease;
+}
+
+.social-media a:hover {
+    background: var(--main-color);
+    color: var(--white-color);
+    box-shadow: 0 0 1rem var(--main-color);
+}
+
+.btn-center {
+    margin-top: 2rem;
+}
+
+/* Ajuste e Proteção da Imagem do Avatar (O erro crucial estava aqui) */
+.home-img {
+    max-width: 45rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-img img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+/* Animação das Profissões (Mantendo suporte para a estrutura giratória se houver) */
+.profession-container {
+    display: none; /* Caso use apenas a imagem direta, se for usar a animação circular remova essa linha */
+}
+
+/* ==========================================================================
+   4. SEÇÃO SOBRE MIM (ABOUT GRID)
+   ========================================================================== */
+.about {
+    background: var(--bg-color);
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    margin-top: 3rem;
+}
+
+/* Transforma em duas colunas no Desktop */
+@media (min-width: 768px) {
+    .about-grid {
+        grid-template-columns: 1fr 1fr;
+        align-items: start;
+    }
+}
+
+.about-main-text h3 {
+    font-size: 2.6rem;
+    margin-bottom: 2rem;
+    line-height: 1.4;
+}
+
+.about-main-text p {
+    font-size: 1.6rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+}
+
+.about-skills-highlights .highlight-title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 2.5rem;
+}
+
+.about-list {
+    list-style: none;
+}
+
+.about-list li {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+    align-items: flex-start;
+}
+
+.about-list .icon {
+    font-size: 2.8rem;
+    background: var(--shadow-color);
+    padding: 0.8rem;
+    border-radius: 0.8rem;
+}
+
+.about-list .list-text strong {
+    font-size: 1.8rem;
+    color: var(--main-color);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.about-list .list-text p {
+    font-size: 1.4rem;
+    line-height: 1.6;
+}
+
+.about-footer {
+    grid-column: 1 / -1; /* Ocupa a largura total abaixo das colunas */
+    margin-top: 4rem;
+    text-align: center;
+}
+
+.about-footer p {
+    font-size: 1.6rem;
+    max-width: 80rem;
+    margin: 0 auto 3rem;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   5. SEÇÃO EXPERIÊNCIAS (SERVICES)
+   ========================================================================== */
+.experiences-two-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+}
+
+.services-box {
+    background: var(--bg-color);
+    padding: 3rem 2rem;
+    border-radius: 2rem;
+    text-align: center;
+    border: .2rem solid var(--shadow-color);
+    box-shadow: 0 .5rem 1rem var(--shadow-color);
+    transition: .5s ease;
+}
+
+.services-box:hover {
+    border-color: var(--main-color);
+    transform: scale(1.02);
+}
+
+.services-box i {
+    font-size: 7rem;
+    color: var(--main-color);
+}
+
+.services-box h3 {
+    font-size: 2.2rem;
+    margin: 1.5rem 0 1rem;
+}
+
+.services-box p {
+    font-size: 1.4rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+/* ==========================================================================
+   6. SEÇÃO PORTFÓLIO (PROJETOS)
+   ========================================================================== */
 .portfolio-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    padding: 1rem;
+    gap: 2.5rem;
+}
+
+.portfolio-box {
+    position: relative;
+    border-radius: 2rem;
+    box-shadow: 0 0 1rem var(--shadow-color);
+    overflow: hidden;
+    display: flex;
+    height: 250px;
 }
 
 .portfolio-box img {
     width: 100%;
-    height: auto;
-    display: block;
+    height: 100%;
+    object-fit: cover;
+    transition: .5s ease;
 }
 
-/* ================= RESPONSIVIDADE (MEDIA QUERIES) ================= */
+.portfolio-box:hover img {
+    transform: scale(1.1);
+}
 
-/* Telas grandes e Notebooks (Ajuste fino de fontes) */
+.portfolio-layer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, .1), var(--main-color));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 0 4rem;
+    transform: translateY(100%);
+    transition: .5s ease;
+    color: var(--white-color);
+}
+
+.portfolio-box:hover .portfolio-layer {
+    transform: translateY(0);
+}
+
+.portfolio-layer h4 {
+    font-size: 2.5rem;
+}
+
+.portfolio-layer p {
+    font-size: 1.4rem;
+    margin: .3rem 0 1rem;
+}
+
+.portfolio-buttons img {
+    background: var(--white-color);
+    border-radius: 50%;
+    padding: 5px;
+    width: 4rem;
+    height: 4rem;
+}
+
+/* ==========================================================================
+   7. SEÇÃO CONTATO E FOOTER
+   ========================================================================== */
+.contact {
+    text-align: center;
+}
+
+.contato-texto {
+    font-size: 1.8rem;
+    max-width: 60rem;
+    margin: 0 auto 3rem;
+    line-height: 1.6;
+}
+
+.contato-btn-wrapper {
+    margin-bottom: 5rem;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 2rem 9%;
+    background: var(--shadow-color);
+}
+
+.footer-text p {
+    font-size: 1.6rem;
+}
+
+.footer-iconTop a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: .8rem;
+    background: var(--main-color);
+    border-radius: .8rem;
+    transition: .5s ease;
+}
+
+.footer-iconTop a:hover {
+    box-shadow: 0 0 1rem var(--main-color);
+}
+
+.footer-iconTop a i {
+    font-size: 2.4rem;
+    color: var(--white-color);
+}
+
+/* ==========================================================================
+   8. MEDIA QUERIES (RESPONSIVIDADE COMPLETA)
+   ========================================================================== */
 @media (max-width: 1200px) {
     html {
         font-size: 55%;
     }
 }
 
-/* Tablets e Monitores Menores */
 @media (max-width: 991px) {
     .header {
         padding: 2rem 3%;
     }
-}
-
-/* Dispositivos Móveis (Celulares) - Onde dava o erro grotesco */
-@media (max-width: 768px) {
-    /* Ajusta o espaçamento do topo do Header */
-    .header {
-        padding: 2rem 4%;
+    
+    section {
+        padding: 10rem 3% 2rem;
     }
 
-    /* Transforma a navbar horizontal em um menu mobile expansível ou empilhado */
+    .footer {
+        padding: 2rem 3%;
+    }
+}
+
+@media (max-width: 768px) {
+    #menu-icon {
+        display: block; /* Hamburger aparece no Mobile */
+    }
+
     .navbar {
         position: absolute;
         top: 100%;
         left: 0;
         width: 100%;
-        padding: 1rem 4%;
+        padding: 1rem 3%;
         background: var(--bg-color);
         border-top: .1rem solid var(--shadow-color);
         box-shadow: 0 .5rem 1rem var(--shadow-color);
-        display: none; /* Esconde o menu no mobile. Mude para 'block' ou adicione JS se quiser testar ele sempre visível */
+        display: none; /* Controlado via JS adicionando classe para abrir */
     }
 
-    /* Classe auxiliar se você for usar menu hambúrguer via JavaScript */
+    /* Classe auxiliar se seu JS ativar o menu toggle */
     .navbar.active {
         display: block;
     }
 
-    /* Ajusta os links para ficarem um abaixo do outro com espaçamento correto */
     .navbar a {
         display: block;
         font-size: 2rem;
-        margin: 2.5rem 0;
-        margin-right: 0; /* Remove a margem direita que esmagava o layout */
+        margin: 3rem 0;
     }
 
-    .navbar a.active::before {
-        bottom: -2px; /* Ajusta a linha ativa no mobile */
+    .home {
+        flex-direction: column-reverse;
+        text-align: center;
     }
-    
-    /* Garante que a imagem principal não quebre a largura máxima da tela */
+
+    .home-content h1 {
+        font-size: 4rem;
+    }
+
     .home-img img {
-        width: 90%;
-        margin: 0 auto;
+        max-width: 280px; /* Reduz tamanho do avatar no mobile */
+    }
+
+    .home-social {
+        display: flex;
+        justify-content: center;
     }
 }
