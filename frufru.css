@@ -65,7 +65,7 @@ body {
     margin-right: auto;
 }
 
-/* ================= BARRA DE NAVEGAÇÃO CORRIGIDA ================= */
+/* ================= BARRA DE NAVEGAÇÃO ================= */
 .navbar a {
     position: relative;
     font-size: 2.0rem;
@@ -98,6 +98,11 @@ body {
     background: var(--main-color);
 }
 
+.header.sticky .navbar a::before {
+    background: var(--main-color);
+    opacity: .7;
+}
+
 /* Ajustes da barra de navegação no Modo Escuro */
 .dark-mode .navbar a {
     color: #fdfdfd;
@@ -109,37 +114,96 @@ body {
 .dark-mode .navbar a:hover {
     color: var(--main-color);
 }
-/* ================================================================ */
 
-.home-img img {
-  width: 500px;
-  position: relative;
-  height: auto;
-  object-fit: cover;
-}
-
-.portfolio-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  padding: 1rem;
-}
-
-.portfolio-box img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.header.sticky .navbar a::before {
-    background: var(--main-color);
-    opacity: .7;
-}
-
+/* ================= ÍCONE MODO ESCURO ================= */
 #darkMode-icon {
     font-size: 2.4rem;
-    color: var(--main-color);
+    color: var(--text-color);
     cursor: pointer;
+    transition: .3s ease;
 }
 
 .header.sticky #darkMode-icon {
+    color: var(--main-color);
+}
+
+/* ================= SEÇÕES E IMAGENS ================= */
+.home-img img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    object-fit: cover;
+}
+
+.portfolio-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.portfolio-box img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ================= RESPONSIVIDADE (MEDIA QUERIES) ================= */
+
+/* Telas grandes e Notebooks (Ajuste fino de fontes) */
+@media (max-width: 1200px) {
+    html {
+        font-size: 55%;
+    }
+}
+
+/* Tablets e Monitores Menores */
+@media (max-width: 991px) {
+    .header {
+        padding: 2rem 3%;
+    }
+}
+
+/* Dispositivos Móveis (Celulares) - Onde dava o erro grotesco */
+@media (max-width: 768px) {
+    /* Ajusta o espaçamento do topo do Header */
+    .header {
+        padding: 2rem 4%;
+    }
+
+    /* Transforma a navbar horizontal em um menu mobile expansível ou empilhado */
+    .navbar {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        padding: 1rem 4%;
+        background: var(--bg-color);
+        border-top: .1rem solid var(--shadow-color);
+        box-shadow: 0 .5rem 1rem var(--shadow-color);
+        display: none; /* Esconde o menu no mobile. Mude para 'block' ou adicione JS se quiser testar ele sempre visível */
+    }
+
+    /* Classe auxiliar se você for usar menu hambúrguer via JavaScript */
+    .navbar.active {
+        display: block;
+    }
+
+    /* Ajusta os links para ficarem um abaixo do outro com espaçamento correto */
+    .navbar a {
+        display: block;
+        font-size: 2rem;
+        margin: 2.5rem 0;
+        margin-right: 0; /* Remove a margem direita que esmagava o layout */
+    }
+
+    .navbar a.active::before {
+        bottom: -2px; /* Ajusta a linha ativa no mobile */
+    }
+    
+    /* Garante que a imagem principal não quebre a largura máxima da tela */
+    .home-img img {
+        width: 90%;
+        margin: 0 auto;
+    }
+}
